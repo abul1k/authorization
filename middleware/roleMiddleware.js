@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken')
 const { secret } = require('../config')
+const { verifyToken } = require('../features')
 
 module.exports = function (roles) {
   return function (req, res, next) {
@@ -8,6 +9,12 @@ module.exports = function (roles) {
 
       if (!token) {
         return res.status(403).json({ message: 'User is not registered' })
+      }
+
+      const decodedToken = verifyToken(token, secret)
+
+      if (!decodedToken) {
+        res.status(401).json({ message: 'Token is invalid or expired' })
       }
 
       const { id: user_data } = jwt.verify(token, secret)

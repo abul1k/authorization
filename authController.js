@@ -4,7 +4,6 @@ const Role = require('./models/Role')
 const jwt = require('jsonwebtoken')
 const { secret } = require('./config')
 const { validationResult } = require('express-validator')
-const { json } = require('express')
 
 const generateAccessToken = (id, roles) => {
   const payload = {
