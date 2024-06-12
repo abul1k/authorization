@@ -6,9 +6,17 @@ class UserService {
     return createdUser
   }
 
-  async getAll() {
-    const users = await User.find()
-    return users
+  async getAll({ page = 1, limit = 10 }) {
+    const skip = (page - 1) * limit // Calculate the number of documents to skip
+    const users = await User.find().skip(skip).limit(parseInt(limit)) // Fetch the documents
+    const totalUsers = await User.countDocuments() // Get the total number of documents
+
+    return {
+      total: totalUsers,
+      page: parseInt(page),
+      limit: parseInt(limit),
+      results: users,
+    }
   }
 
   async getOne(id) {

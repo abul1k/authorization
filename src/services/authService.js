@@ -24,7 +24,7 @@ class AuthService {
     }
 
     const hashPassword = bcrypt.hashSync(password, 7)
-    const userRole = await Role.findOne({ value: 'USER' }) // user role
+    const userRole = await Role.findOne({ value: 'USER' }) // * user role
 
     const user = await User.create({
       username,

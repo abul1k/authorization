@@ -1,3 +1,4 @@
+const Role = require('../models/Role')
 const authService = require('../services/authService')
 const { validationResult } = require('express-validator')
 
@@ -13,7 +14,7 @@ class authController {
     } catch (error) {
       res
         .status(400)
-        .json({ message: 'Registration failed', error: error.message })
+        .json({ message: 'Registration failed!', error: error.message })
     }
   }
 

@@ -10,9 +10,10 @@ class UserController {
     }
   }
 
-  async getAll(_, res) {
+  async getAll(req, res) {
     try {
-      const posts = await UserService.getAll()
+      const { page = 1, limit = 10 } = req.query // Default values: page 1, limit 10
+      const posts = await UserService.getAll({ page, limit })
       return res.status(200).json(posts)
     } catch (error) {
       res.status(500).json(error.message)
